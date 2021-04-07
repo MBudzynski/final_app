@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <div th:replace="/fragments/header :: header-css"></div>
+</head>
+<body>
+<div th:replace="/fragments/header :: headerFragment"></div>
+
+<form action="/products">
+    <input type="text" name="query" th:value="${searchText}">
+    <select name="productType">
+        <option value="" th:text="Wybierz"></option>
+        <option
+                th:each="type : ${productTypes}"
+                th:value="${type}"
+                th:text="${type.plName}"
+                th:selected="${productType eq type}">
+        </option>
+    </select>
+    <select name="categoryId">
+        <option value="" th:text="Wybierz"></option>
+        <option
+                th:each="category : ${categoriesWithId}"
+                th:value="${category.getId()}"
+                th:text="${category.getIdWithName()}"
+                th:selected="${category eq categoryId}">
+        </option>
+    </select>
+    <button>Wyszukaj</button>
+    <br/>
+</form>
+
+<table style = "border: 1px">
+        <tr>
+            <th>id</th>
+            <th>Title</th>
+            <th>Picture Url</th>
+            <th>Price</th>
+            <th>Product type</th>
+            <th>Category</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="p:${productsList}">
+            <td th:text="${p.id}"></td>
+            <td th:text="${p.getTitle()}"></td>
+            <td th:text="${p.pictureUrl}"></td>
+            <td th:text="${p.price}"></td>
+            <td th:text="${p.productType}"></td>
+            <td th:text="${p.categoryName}"></td>
+            <td>
+                <a th:href="@{/products/{id}(id=${p.id})}">Edytuj</a>
+            </td>
+        </tr>
+    </table>
+
+<hr>
+<form method="post", th:action="@{/products}">
+    <input name="title" placeholder="Title">
+    <input name="pictureUrl" placeholder="PictureUrl">
+    <input name="price" type="number" step="0.01" placeholder="Price">
+    <select name="productType">
+        <option value="" th:text="Wybierz"></option>
+        <option
+                th:each="type : ${productTypes}"
+                th:value="${type}"
+                th:text="${type.plName}">
+        </option>
+    </select>
+    <select name="categoryId">
+        <option value="" th:text="Wybierz"></option>
+        <option
+                th:each="category : ${categoriesWithId}"
+                th:value="${category.id}"
+                th:text="${category.idWithName}">
+        </option>
+    </select>
+    <button>Dodaj</button>
+</form>
+
+</body>
+</html>

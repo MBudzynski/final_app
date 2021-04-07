@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div th:replace="fragments/header :: headerFragment"></div>
+<form class="form-signin" method="post" th:action="@{register}" th:object="${registrationUserDto}">
+    <label for="firstName">First name</label>
+    <input class="form-control" th:field="*{firstName}" th:placeholder="firstName"><br/>
+    <p style="color: #FF0000" th:text="${firstNameError}" th:if="${firstNameError}"></p>
+    <label for="lastName">Last name</label>
+    <input class="form-control" th:field="*{lastName}" th:placeholder="lastName"><br/>
+    <p style="color: #FF0000" th:text="${lastNameError}" th:if="${lastNameError}"></p>
+    <label for="eMail">e-mail</label>
+    <input class="form-control" th:field="*{eMail}" th:placeholder="eMail"><br/>
+    <p style="color: #FF0000" th:text="${eMailError}" th:if="${eMailError}"></p>
+    <p style="color: #FF0000" th:if="${userFoundMessage}" th:text="${userFoundMessage}"></p>
+    <label for="password">Password</label>
+    <input class="form-control" th:field="*{password}" th:placeholder="password"><br/>
+    <p style="color: #FF0000" th:text="${passwordError}" th:if="${passwordError}"></p>
+    <label for="city">City</label>
+    <input  class="form-control" th:field="*{city}" th:placeholder="city"><br/>
+    <p style="color: #FF0000" th:text="${cityError}" th:if="${cityError}"></p>
+    <label for="country">Country</label>
+    <select class="form-control" th:field="*{country}" id="">
+        <option th:value="''">Wybierz</option>
+        <option th:each="country : ${countryList}"
+                th:value="${country.symbol}"
+                th:text="${country.plName}"></option>
+    </select><br/>
+    <p style="color: #FF0000" th:text="${countryError}" th:if="${countryError}"></p>
+    <label for="zipCode">Zip code</label>
+    <input class="form-control" th:field="*{zipCode}" th:placeholder="zipCode"><br/>
+    <p style="color: #FF0000" th:text="${zipCodeError}" th:if="${zipCodeError}"></p>
+    <label for="street">Street</label>
+    <input class="form-control" th:field="*{street}" th:placeholder="street"><br/>
+    <p style="color: #FF0000" th:text="${streetError}" th:if="${streetError}"></p>
+    <label for="birthDate">Birth date</label>
+    <input class="form-control" th:field="*{birthDate}" th:placeholder="birthDate"><br/>
+    <p style="color: #FF0000" th:text="${birthDateError}" th:if="${birthDateError}"></p>
+    <label for="pesel">Pesel</label>
+    <input class="form-control" th:field="*{pesel}" th:placeholder="pesel"><br/>
+    <p style="color: #FF0000" th:text="${peselError}" th:if="${peselError}"></p>
+    <label for="phone">Phone</label>
+    <input class="form-control" th:field="*{phone}" th:placeholder="phone"><br/>
+    <p style="color: #FF0000" th:text="${phoneError}" th:if="${phoneError}"></p>
+    <label for="preferEmails">Prefer Emails</label>
+    <input class="form-control" th:field="*{preferEmails}" th:placeholder="preferEmails"><br/>
+    <button>Utwórz konto</button>
+</form>
+
+</body>
+</html>
